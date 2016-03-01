@@ -9,3 +9,5 @@ https://elasticsearch-py.readthedocs.org/en/master/api.html#elasticsearch
 http://support.facetflow.com/kb/getting-started/python-tutorial
 http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains.html
 http://chrissimpson.co.uk/elasticsearch-yellow-cluster-status-explained.html
+
+http://scigeo.org/articles/howto-install-latest-geospatial-software-on-linux.html#geos
