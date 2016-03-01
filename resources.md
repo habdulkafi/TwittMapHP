@@ -1,0 +1,11 @@
+https://aws.amazon.com/blogs/aws/new-amazon-elasticsearch-service/
+http://adilmoujahid.com/posts/2014/07/twitter-analytics/
+http://stackoverflow.com/questions/27530269/how-can-i-use-tweepy-without-a-filter
+https://qbox.io/blog/what-is-elasticsearch
+http://leafletjs.com/
+https://qbox.io/blog/building-an-elasticsearch-index-with-python
+https://bitquabit.com/post/having-fun-python-and-elasticsearch-part-1/
+https://elasticsearch-py.readthedocs.org/en/master/api.html#elasticsearch
+http://support.facetflow.com/kb/getting-started/python-tutorial
+http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains.html
+http://chrissimpson.co.uk/elasticsearch-yellow-cluster-status-explained.html
