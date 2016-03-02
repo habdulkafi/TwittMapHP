@@ -14,3 +14,17 @@ http://scigeo.org/articles/howto-install-latest-geospatial-software-on-linux.htm
 
 
 http://blog.modulus.io/absolute-beginners-guide-to-nodejs
+
+
+http://marcobonzanini.com/2015/06/16/mining-twitter-data-with-python-and-js-part-7-geolocation-and-interactive-maps/
+http://trac.osgeo.org/geos/
+http://deparkes.co.uk/2015/02/28/how-to-find-the-centre-of-a-polygon-in-python/
+http://toblerity.org/shapely/manual.html
+https://msdn.microsoft.com/en-us/library/aa578799.aspx
+http://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm
+http://expressjs.com/en/starter/hello-world.html
+https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/
+http://denelius.com/leaflet-node-mongodb/
+https://www.npmjs.com/package/elasticsearch
+https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/quick-start.html
+http://expressjs.com/en/api.html#req
