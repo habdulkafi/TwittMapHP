@@ -28,3 +28,7 @@ http://denelius.com/leaflet-node-mongodb/
 https://www.npmjs.com/package/elasticsearch
 https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/quick-start.html
 http://expressjs.com/en/api.html#req
+
+
+Using the Twitter Stream API to visualize Tweets on Google Maps:
+http://blog.safe.com/2014/03/twitter-stream-api-map/
