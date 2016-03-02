@@ -11,3 +11,6 @@ http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-manage
 http://chrissimpson.co.uk/elasticsearch-yellow-cluster-status-explained.html
 
 http://scigeo.org/articles/howto-install-latest-geospatial-software-on-linux.html#geos
+
+
+http://blog.modulus.io/absolute-beginners-guide-to-nodejs
