@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html ng-app="demoapp">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script src="js/angular-leaflet-directive.min.js"></script>
+    <script src="bower_components/elasticsearch/elasticsearch.angular.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <script>
+
+
+
+    var TwittMap = angular.module('twittMap', ['elasticsearch'],
+    ['$locationProvider', function($locationProvider){
+        $locationProvider.html5Mode(true);
+    }]
+);
+
+
+/**
+ * Create a service to power calls to Elasticsearch. We only need to
+ * use the _search endpoint.
+ */
+TwittMap.factory('tweetService',
+    ['$q', 'esFactory', '$location', function($q, elasticsearch, $location){
+        var client = elasticsearch({
+            host: "***REMOVED***"
+        });
+
+        /**
+         * Given a term and an offset, load another round of 10 recipes.
+         *
+         * Returns a promise.
+         */
+        var search = function(term, offset){
+            var deferred = $q.defer();
+            var query = {
+                "match": {
+                    "_all": term
+                }
+            };
+
+            client.search({
+                "index": 'tweets',
+                "type": 'status',
+                "body": {
+                    "size": 100,
+                    "from": (offset || 0) * 100,
+                    "query": query
+                }
+            }).then(function(result) {
+                var ii = 0, hits_in, hits_out = [];
+                hits_in = (result.hits || {}).hits || [];
+                for(;ii < hits_in.length; ii++){
+                    hits_out.push(hits_in[ii]._source);
+                }
+                deferred.resolve(hits_out);
+            }, deferred.reject);
+
+            return deferred.promise;
+        };
+
+
+        return {
+            "search": search
+        };
+    }]
+);
+
+/**
+ * Create a controller to interact with the UI.
+ */
+TwittMap.controller('twittCtrl',
+    ['tweetService', '$scope', '$location', function(tweets, $scope, $location){
+        // Provide some nice initial choices
+        var initChoices = [
+            "rendang",
+            "nasi goreng",
+            "pad thai",
+            "pizza",
+            "lasagne",
+            "ice cream",
+            "schnitzel",
+            "hummous"
+        ];
+        var idx = Math.floor(Math.random() * initChoices.length);
+
+        // Initialize the scope defaults.
+        $scope.tweets = [];        // An array of recipe results to display
+        $scope.page = 0;            // A counter to keep track of our current page
+        $scope.allResults = false;  // Whether or not all results have been found.
+
+        // And, a random search term to start if none was present on page load.
+        $scope.searchTerm = $location.search().q || initChoices[idx];
+
+        /**
+         * A fresh search. Reset the scope variables to their defaults, set
+         * the q query parameter, and load more results.
+         */
+        $scope.search = function(){
+            $scope.page = 0;
+            $scope.tweets = [];
+            $scope.allResults = false;
+            $location.search({'q': $scope.searchTerm});
+            $scope.loadMore();
+        };
+
+        /**
+         * Load the next page of results, incrementing the page counter.
+         * When query is finished, push results onto $scope.recipes and decide
+         * whether all results have been returned (i.e. were 10 results returned?)
+         */
+        $scope.loadMore = function(){
+            tweets.search($scope.searchTerm, $scope.page++).then(function(results){
+                if(results.length !== 10){
+                    $scope.allResults = true;
+                }
+
+                var ii = 0;
+                for(;ii < results.length; ii++){
+                    $scope.tweets.push(results[ii]);
+                }
+            });
+        };
+
+        // Load results on first run
+        $scope.loadMore();
+    }]
+);
+
+
+
+        var app = angular.module("demoapp", ["leaflet-directive","elasticsearch"],
+            ['$locationProvider', function($locationProvider){
+        $locationProvider.html5Mode(true);
+    }]
+    );
+
+app.factory('tweetService',
+    ['$q', 'esFactory', '$location', function($q, elasticsearch, $location){
+        var client = elasticsearch({
+            host: "***REMOVED***"
+        });
+
+        /**
+         * Given a term and an offset, load another round of 10 recipes.
+         *
+         * Returns a promise.
+         */
+        var search = function(term, offset){
+            var deferred = $q.defer();
+            var query = {
+                "match": {
+                    "_all": term
+                }
+            };
+
+            client.search({
+                "index": 'tweets',
+                "type": 'status',
+                "body": {
+                    "size": 100,
+                    "from": (offset || 0) * 100,
+                    "query": query
+                }
+            }).then(function(result) {
+                var ii = 0, hits_in, hits_out = [];
+                hits_in = (result.hits || {}).hits || [];
+                for(;ii < hits_in.length; ii++){
+                    hits_out.push(hits_in[ii]._source);
+                }
+                deferred.resolve(hits_out);
+            }, deferred.reject);
+
+            return deferred.promise;
+        };
+
+
+        return {
+            "search": search
+        };
+    }]
+);
+
+ 
+app.controller('MarkersAddRemoveController', 
+    ['tweetService', '$scope', '$location', 
+    function(tweets, $scope, $location) {
+                var initChoices = [
+            "m",
+            "money",
+            "hello",
+            "pizza",
+            "ok",
+            "lol",
+            "snow",
+            "now"
+        ];
+        var idx = Math.floor(Math.random() * initChoices.length);
+
+        // Initialize the scope defaults.
+        $scope.tweets = [];   
+        $scope.searchTerm = $location.search().q || initChoices[idx];
+        $scope.search = function(){
+            $scope.page = 0;
+            $scope.tweets = [];
+            $scope.allResults = false;
+            $location.search({'q': $scope.searchTerm});
+            $scope.loadMore();
+            // console.log("hello");
+            // console.log($scope.tweets.length);
+            // for(i = 0; i< $scope.tweets.length; i++) {
+            //     console.log($scope.tweets.length);
+            // }
+        };
+// for (i = 0; i < cars.length; i++) { 
+//     text += cars[i] + "<br>";
+// }
+
+        $scope.loadMore = function(){
+            tweets.search($scope.searchTerm, $scope.page++).then(function(results){
+                if(results.length !== 100){
+                    $scope.allResults = true;
+                }
+
+                var ii = 0;
+                for(;ii < results.length; ii++){
+                    $scope.tweets.push(results[ii]);
+                }
+            // console.log($scope.tweets);
+            mrk = {};
+            for(i = 0; i< $scope.tweets.length; i++) {
+                // console.log($scope.tweets[i].latitude);
+                msg = "<dl><dt><b>Tweet: </b>" + $scope.tweets[i].status + "</dt><dt><b>Author: </b>" + $scope.tweets[i].author + "</dt><dt><b>Tweet ID: </b>" + $scope.tweets[i].tweetId + "</dt></dl>";
+                // console.log(msg);
+                mrk[i] = {
+                            lat: $scope.tweets[i].latitude,
+                            lng: $scope.tweets[i].longitude,
+                            message: msg
+                        };
+            }
+            angular.extend($scope, {
+                markers: mrk 
+            });
+            });
+        };
+
+        $scope.loadMore();
+         
+
+            angular.extend($scope, {
+                london: {
+                    lat: 51.505,
+                    lng: -0.09,
+                    zoom: 2
+                }//,
+                // markers: {}
+            });
+            $scope.addMarkers = function() {
+                // angular.extend($scope, {
+                //     markers: {
+                //         1: {
+                //             lat: 51.505,
+                //             lng: -0.09,
+                //             message: "I'm a static marker",
+                //         },
+                //         2: {
+                //             lat: 51,
+                //             lng: 0,
+                //             focus: true,
+                //             message: "Hey, drag me if you want",
+                //             draggable: true
+                //         }
+                //     }
+                // });
+            };
+            $scope.removeMarkers = function() {
+                $scope.markers = {};
+            }
+            // $scope.addMarkers();
+        } ]);
+
+
+
+
+    </script>
+  </head>
+  <body ng-controller="MarkersAddRemoveController">
+      <leaflet lf-center="london" markers="markers" height="480px" width="100%"></leaflet>
+      <h1>Add/remove markers easily example</h1>
+      <!-- <button ng-click="removeMarkers()">Remove markers</button> -->
+      <!-- <button ng-click="addMarkers()">Add markers</button> -->
+      <form ng-submit='search()'>
+            <input ng-model='searchTerm' type='text'>
+            <input type='submit' value='Search for tweets'>
+      </form>
+  </body>
+</html>
