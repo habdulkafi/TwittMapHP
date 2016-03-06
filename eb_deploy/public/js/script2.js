@@ -1,3 +1,6 @@
+// Adapted from:
+// http://www.sitepoint.com/building-recipe-search-site-angular-elasticsearch/
+// https://github.com/tombatossals/angular-leaflet-directive
 
 
     var app = angular.module("demoapp", ["leaflet-directive","elasticsearch"],
@@ -12,11 +15,6 @@ app.factory('tweetService',
             host: "***REMOVED***"
         });
 
-        /**
-         * Given a term and an offset, load another round of 10 recipes.
-         *
-         * Returns a promise.
-         */
         var search = function(term, offset){
             var deferred = $q.defer();
             var query = {
@@ -81,14 +79,14 @@ angular.extend($scope, {
             });
 
                 var initChoices = [
-            "m",
-            "money",
-            "hello",
-            "pizza",
-            "ok",
-            "lol",
+            "Obama",
+            "kanye",
+            "Trump",
+            "#makeamericagreatagain",
+            "columbia",
+            "#feelthebern",
             "snow",
-            "now"
+            "twitter"
         ];
         var idx = Math.floor(Math.random() * initChoices.length);
 
