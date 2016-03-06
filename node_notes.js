@@ -1,4 +1,4 @@
-> var client = new elasticsearch.Client({host: '***REMOVED***',log:'trace'});
+> var client = new elasticsearch.Client({host: ':80',log:'trace'});
 
 client.ping({
   // ping usually has a 3000ms timeout

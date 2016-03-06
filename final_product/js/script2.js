@@ -9,7 +9,7 @@
 app.factory('tweetService',
     ['$q', 'esFactory', '$location', function($q, elasticsearch, $location){
         var client = elasticsearch({
-            host: "***REMOVED***"
+            host: ":80"
         });
 
         /**
