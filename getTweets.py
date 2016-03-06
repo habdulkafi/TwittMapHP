@@ -6,7 +6,6 @@ import elasticsearch
 import sys
 # import pickle
 
-# es = elasticsearch.Elasticsearch([{'host': "search-twittmaphp-dpcjeguwxycdft3yapcjkcsymi.us-west-2.es.amazonaws.com",'port':80, 'use_ssl':False}])
 # es.index(index='posts', doc_type='blog', id=1, body={
 #     'author': 'Santa Clause',
 #     'blog': 'Slave Based Shippers of the North',

@@ -8,7 +8,7 @@ import sys
 from shapely.geometry import Polygon
 
 
-es = elasticsearch.Elasticsearch([{'host': "search-twittmaphp-dpcjeguwxycdft3yapcjkcsymi.us-west-2.es.amazonaws.com",'port':80, 'use_ssl':False}])
+es = elasticsearch.Elasticsearch([{'host': "awsesurl",'port':80, 'use_ssl':False}])
 
 # apikey = ...
 # apisecret = ...
