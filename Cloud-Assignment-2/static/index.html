@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="demoapp">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="static/bower_components/angular/angular.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script src="static/js/leaflet.markercluster.js"></script>
+    <script src="static/js/angular-leaflet-directive.min.js"></script>
+    <script src="static/bower_components/elasticsearch/elasticsearch.angular.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link rel="stylesheet" href="static/css/MarkerCluster.css" />
+    <link rel="stylesheet" href="static/css/MarkerCluster.Default.css" />
+
+    <script src="static/js/script2.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        socket.on('second', function() {
+            var query = window.location.href.replace(window.location.origin + "/?q=","");
+            alert("New Tweet in ElasticSearch related to " + query);
+        });
+    </script>
+  </head>
+  <body ng-controller="MarkersAddRemoveController">
+      <leaflet lf-center="london" markers="markers" layers="layers" height="480px" width="100%"></leaflet>
+      <h1>Search For Tweets!</h1>
+      <form ng-submit='search()'>
+            <input ng-model='searchTerm' type='text'>
+            <input type='submit' value='Search for tweets'>
+      </form>
+  </body>
+</html>
